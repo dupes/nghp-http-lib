@@ -9,6 +9,11 @@
 #define NGHP_H_
 
 #include <string>
+#include <vector>
+#include <iostream>
+#include <sstream>
+#include <algorithm>
+#include <iterator>
 
 #include "HttpCurl.h"
 
@@ -18,6 +23,10 @@ class NGHP
 {
 private:
 	string m_host;
+
+	HttpCurl m_http;
+
+	string getQuery(string url);
 
 public:
 	NGHP(string host);
@@ -37,6 +46,11 @@ public:
 
 	string setReduction(double reduction);
 	double getReduction();
+
+	string getResponseCode();
+	string getResponseMessage();
+
+	string getResponseBody();
 };
 
 #endif /* NGHP_H_ */

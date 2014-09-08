@@ -14,16 +14,41 @@ NGHP::NGHP(string host)
 /********************************************************************************/
 
 
-NGHP::~NGHP() {
-	// TODO Auto-generated destructor stub
+NGHP::~NGHP()
+{
 }
 
 /********************************************************************************/
 
+string NGHP::getQuery(string url)
+{
+	m_http.get(url);
+
+	istringstream iss(m_http.getResponseBody());
+
+	vector<string> tokens;
+
+	//for (istream_iterator<string>{iss}
+	//                   istream_iterator<string>{}};
+
+	string token;
+
+	while(getline(iss, token, ' '))
+		tokens.push_back(token);
+
+	if (tokens.size() == 0)
+		return "";
+
+	return tokens[tokens.size() - 1];
+}
+
+/********************************************************************************/
 
 string NGHP::getCVar(string var)
 {
-	return "";
+	string url = m_host + "/getcvar?" + var;
+
+	return getQuery(url);
 }
 
 /********************************************************************************/
@@ -31,7 +56,9 @@ string NGHP::getCVar(string var)
 
 string NGHP::setCVar(string var, string value)
 {
-	return "";
+	string url = m_host + "/getcvar?" + var + "&" + value;
+
+	return getQuery(url);
 }
 
 /********************************************************************************/
@@ -39,7 +66,9 @@ string NGHP::setCVar(string var, string value)
 
 int NGHP::getCVarInt(string var)
 {
-	return 0;
+	string value = getCVar(var);
+
+	return atoi(value.c_str());
 }
 
 /********************************************************************************/
@@ -47,14 +76,20 @@ int NGHP::getCVarInt(string var)
 
 double NGHP::getCVarDouble(string var)
 {
-	return 0.0;
+	string value = getCVar(var);
+
+	return atof(value.c_str());
 }
 
 /********************************************************************************/
 
 string NGHP::setCVarInt(string var, int value)
 {
-	return "";
+	stringstream ssValue;
+
+	ssValue << value;
+
+	return setCVar(var, ssValue.str());
 }
 
 /********************************************************************************/
@@ -62,7 +97,11 @@ string NGHP::setCVarInt(string var, int value)
 
 string NGHP::setCVarDouble(string var, double value)
 {
-	return "";
+	stringstream ssValue;
+
+	ssValue << value;
+
+	return setCVar(var, ssValue.str());
 }
 
 /********************************************************************************/
@@ -70,7 +109,7 @@ string NGHP::setCVarDouble(string var, double value)
 
 string NGHP::setDuration(int duration)
 {
-	return "";
+	return setCVarInt("hp_duration", duration);
 }
 
 /********************************************************************************/
@@ -78,19 +117,40 @@ string NGHP::setDuration(int duration)
 
 int NGHP::getDuration()
 {
-	return 0;
+	return getCVarInt("hp_duration");
 }
 
 /********************************************************************************/
 
 string NGHP::setReduction(double reduction)
 {
-	return "";
+	return setCVarDouble("hp_reduction", reduction);
 }
 
 /********************************************************************************/
 
-double getReduction()
+double NGHP::getReduction()
 {
-	return 0.0;
+	return getCVarDouble("hp_reduction");
+}
+
+/********************************************************************************/
+
+string NGHP::getResponseCode()
+{
+	return m_http.getResponseCode();
+}
+
+/********************************************************************************/
+
+string NGHP::getResponseMessage()
+{
+	return m_http.getResponseMessage();
+}
+
+/********************************************************************************/
+
+string NGHP::getResponseBody()
+{
+	return m_http.getResponseBody();
 }

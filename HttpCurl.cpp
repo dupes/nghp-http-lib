@@ -232,11 +232,9 @@ bool HttpCurl::post(string url, string content)
 
 /********************************************************************************/
 
-bool HttpCurl::get(string url, string parameter, string value)
+bool HttpCurl::get(string url)
 {
 	CURLcode result;
-
-	url = url + "?" + parameter + "&" + value;
 
 	initRequest(url);
 

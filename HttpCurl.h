@@ -50,7 +50,7 @@ public:
 	virtual ~HttpCurl();
 
 	bool post(string url, string content);
-	bool get(string url, string parameter, string value);
+	bool get(string url);
 
 	string getRequestBody();
 	string getResponseBody();
