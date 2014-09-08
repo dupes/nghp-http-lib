@@ -108,13 +108,6 @@ HttpCurl::HttpCurl()
 	// remove header: Expect: 100-continue
 	m_requestHeaders = curl_slist_append(m_requestHeaders, "Expect:");
 
-	// set the application type header
-	if ((result = curl_easy_setopt(m_curl, CURLOPT_HTTPHEADER, m_requestHeaders)) != 0)
-	{
-		CurlException ex(result, m_message);
-		throw ex;
-	}
-
 	m_instanceCount++;
 }
 
@@ -191,6 +184,14 @@ void HttpCurl::perform()
 {
 	CURLcode result;
 
+
+	// set the application type header
+	if ((result = curl_easy_setopt(m_curl, CURLOPT_HTTPHEADER, m_requestHeaders)) != 0)
+	{
+		CurlException ex(result, m_message);
+		throw ex;
+	}
+
 	// initiate the request
 	if ((result = curl_easy_perform(m_curl)) != 0)
 	{
@@ -233,6 +234,20 @@ bool HttpCurl::post(string url, string content)
 
 bool HttpCurl::get(string url, string parameter, string value)
 {
+	CURLcode result;
+
+	url = url + "?" + parameter + "&" + value;
+
+	initRequest(url);
+
+	// set request type to get
+	if ((result = curl_easy_setopt(m_curl, CURLOPT_POST, 1L)) != 0)
+	{
+		CurlException ex(result, m_message);
+		throw ex;
+	}
+
+	perform();
 
 	return true;
 }
