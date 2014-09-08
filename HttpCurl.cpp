@@ -44,16 +44,16 @@ HttpCurl::HttpCurl()
 		throw ex;
 	}
 
-#ifdef _CURL_DEBUG
-	// enable verbose output
-	if ((result = curl_easy_setopt(m_curl, CURLOPT_VERBOSE, 1)) != 0)
+	// enable header output
+	if ((result = curl_easy_setopt(m_curl, CURLOPT_HEADER, 1)) != 0)
 	{
 		CurlException ex(result, m_message);
 		throw ex;
 	}
 
-	// enable header output
-	if ((result = curl_easy_setopt(m_curl, CURLOPT_HEADER, 1)) != 0)
+#ifdef _CURL_DEBUG
+	// enable verbose output
+	if ((result = curl_easy_setopt(m_curl, CURLOPT_VERBOSE, 1)) != 0)
 	{
 		CurlException ex(result, m_message);
 		throw ex;
@@ -237,13 +237,6 @@ bool HttpCurl::get(string url)
 	CURLcode result;
 
 	initRequest(url);
-
-	// set request type to get
-	if ((result = curl_easy_setopt(m_curl, CURLOPT_POST, 1L)) != 0)
-	{
-		CurlException ex(result, m_message);
-		throw ex;
-	}
 
 	perform();
 
