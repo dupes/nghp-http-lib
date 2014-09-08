@@ -9,6 +9,7 @@
 
 NGHP::NGHP(string host)
 {
+	m_host = host;
 }
 
 /********************************************************************************/
@@ -52,7 +53,7 @@ string NGHP::getCVar(string var)
 
 string NGHP::setCVar(string var, string value)
 {
-	string url = m_host + "/getcvar?" + var + "&" + value;
+	string url = m_host + "/setcvar?" + var + "&" + value;
 
 	return getQuery(url);
 }
