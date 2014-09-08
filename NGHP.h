@@ -47,6 +47,8 @@ public:
 	string setReduction(double reduction);
 	double getReduction();
 
+	int getCurrentPower();
+
 	string getResponseCode();
 	string getResponseMessage();
 

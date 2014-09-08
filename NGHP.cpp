@@ -132,6 +132,13 @@ double NGHP::getReduction()
 
 /********************************************************************************/
 
+int NGHP::getCurrentPower()
+{
+	return getCVarInt("hp_W");
+}
+
+/********************************************************************************/
+
 string NGHP::getResponseCode()
 {
 	return m_http.getResponseCode();
