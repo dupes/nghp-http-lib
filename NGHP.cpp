@@ -27,10 +27,6 @@ string NGHP::getQuery(string url)
 	istringstream iss(m_http.getResponseBody());
 
 	vector<string> tokens;
-
-	//for (istream_iterator<string>{iss}
-	//                   istream_iterator<string>{}};
-
 	string token;
 
 	while(getline(iss, token, ' '))
