@@ -7,9 +7,11 @@
 
 #include "NGHP.h"
 
-NGHP::NGHP(string host)
+NGHP::NGHP(string host, int connectTimeout)
 {
 	m_host = host;
+
+	m_http.setConnctTimeout(connectTimeout);
 }
 
 /********************************************************************************/
