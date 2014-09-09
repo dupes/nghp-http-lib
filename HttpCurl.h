@@ -52,6 +52,8 @@ public:
 	bool post(string url, string content);
 	bool get(string url);
 
+	void setConnctTimeout(int timeout);
+
 	string getRequestBody();
 	string getResponseBody();
 
