@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 
 	try
 	{
-		NGHP nghp(argv[1]);
+		NGHP nghp(argv[1], 5);
 		string result;
 
 		if (strcmp(argv[2], "get") == 0)
