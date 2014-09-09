@@ -27,6 +27,9 @@ string NGHP::getQuery(string url)
 {
 	m_http.get(url);
 
+	if (m_http.getResponseBody().find("variable out of range") != string::npos)
+		return m_http.getResponseBody();
+
 	istringstream iss(m_http.getResponseBody());
 
 	vector<string> tokens;
