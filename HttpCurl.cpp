@@ -256,6 +256,30 @@ void HttpCurl::setConnctTimeout(int timeout)
 	}
 }
 
+
+/********************************************************************************/
+
+void HttpCurl::setHttpAuthentication(string user, string password)
+{
+	CURLcode result;
+
+	if ((result = curl_easy_setopt(m_curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC)) != 0)
+	{
+		CurlException ex(result, m_message);
+		throw ex;
+	}
+
+	string userpwd;
+
+	userpwd.append(user).append(":").append(password);
+
+	if ((result = curl_easy_setopt(m_curl, CURLOPT_USERPWD, userpwd.c_str())) != 0)
+	{
+		CurlException ex(result, m_message);
+		throw ex;
+	}
+}
+
 /********************************************************************************/
 
 string HttpCurl::getRequestBody()

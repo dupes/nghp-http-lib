@@ -12,6 +12,8 @@ NGHP::NGHP(string host, int connectTimeout)
 	m_host = host;
 
 	m_http.setConnctTimeout(connectTimeout);
+
+	// m_http.setHttpAuthentication("", "");
 }
 
 /********************************************************************************/

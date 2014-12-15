@@ -54,6 +54,8 @@ public:
 
 	void setConnctTimeout(int timeout);
 
+	void setHttpAuthentication(string user, string password);
+
 	string getRequestBody();
 	string getResponseBody();
 
